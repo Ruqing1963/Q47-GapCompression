@@ -1,0 +1,193 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+
+% Page layout
+\geometry{left=2.5cm, right=2.5cm, top=3cm, bottom=3cm}
+
+% Theorem environments
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+% Title
+\title{\textbf{The Bateman--Horn Constant as a Compression Factor:\\[4pt]
+Prime Density Enhancement in the Titan Polynomial}}
+
+\author{\textbf{Ruqing Chen}\\
+GUT Geoservice Inc., Montreal, Quebec\\
+\texttt{ruqing@hotmail.com}}
+
+\date{February 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The Bateman--Horn conjecture predicts that the density of prime values of an irreducible polynomial $f(n)$ is governed by a singular series constant $\mathfrak{S}(f)$, which measures the local arithmetic bias towards primality.
+For the Titan polynomial $Q(n) = n^{47}-(n-1)^{47}$, of degree $d=46$, the ``Shielding Property'' ($\omega_Q(p) = 0$ for all $p < 283$) produces an anomalously large constant $\mathfrak{S}(Q) \approx 8.70$.
+In this note, we contextualize this constant among well-known number-theoretic constants and quantify its effect: the expected gap between prime-producing arguments is compressed by a factor of $\approx 8.7$ compared to a generic degree-46 polynomial with $\mathfrak{S} \approx 1$.
+This arithmetic enhancement effectively reduces the sparsity of the sequence, making large prime discovery significantly more tractable than degree-based heuristics would suggest.
+\end{abstract}
+
+\medskip
+\noindent\textbf{MSC 2020:} 11N32, 11R18, 11Y35
+
+\noindent\textbf{Keywords:} Bateman--Horn conjecture,
+singular series, cyclotomic norm form, prime density,
+shielding property, gap compression, polynomial primes
+
+\section{Introduction}
+
+The Bateman--Horn conjecture \cite{BatemanHorn} provides a heuristic formula for counting prime values of polynomials. For a single irreducible polynomial $f(n)$ of degree $d$, the number of $n \le x$ such that $f(n)$ is prime satisfies:
+\[
+\pi_f(x) \sim \frac{\mathfrak{S}(f)}{d} \int_2^x \frac{dt}{\ln t},
+\]
+where the singular series $\mathfrak{S}(f)$ reflects the arithmetic local density:
+\[
+\mathfrak{S}(f) = \prod_{p} \frac{1 - \omega_f(p)/p}{1 - 1/p}.
+\]
+Here $\omega_f(p)$ is the number of solutions to $f(n) \equiv 0 \pmod p$.
+
+For a generic polynomial of degree $d=46$, $\mathfrak{S}(f) \approx 1$. However, the cyclotomic norm form $Q(n) = n^{47}-(n-1)^{47}$ exhibits a singular series $\mathfrak{S}(Q) \approx 8.70$, as calculated in our previous work \cite{ChenBHpaper}.
+While the high degree ($d=46$) naturally suppresses the prime density by a factor of $1/46$ compared to integers, the large constant $\mathfrak{S}(Q)$ significantly counteracts this suppression.
+We term this the \textbf{Titan Compression Effect}, as it compresses the search interval required to find a prime by nearly an order of magnitude relative to the generic expectation.
+
+\section{Derivation of the Titan Constant}
+
+\subsection{Root Structure $\omega_Q(p)$}
+The value of $\omega_Q(p)$ depends on the splitting behavior of $p$ in the cyclotomic field $\mathbb{Q}(\zeta_{47})$. This ``Shielding Property'' was rigorously established in \cite{ChenTitan}.
+
+\begin{itemize}
+    \item \textbf{Case 1: $p=47$ (Ramified).}
+    Since $n^{47} \equiv n \pmod{47}$, we have $Q(n) \equiv n - (n-1) \equiv 1 \pmod{47}$.
+    The equation $Q(n) \equiv 0$ has no solutions. Thus, $\omega_Q(47) = 0$.
+
+    \item \textbf{Case 2: $p \equiv 1 \pmod{47}$ (Splitting).}
+    Since $47 \mid (p-1)$, the $47$-th power map
+    $x \mapsto x^{47}$ on~$\mathbb{F}_p^\times$ has a kernel
+    of size~$47$ (the group of $47$-th roots of unity).
+    The equation $n^{47} \equiv (n-1)^{47}$ corresponds to
+    $z^{47} \equiv 1$ where $z = n/(n-1)$.
+    There are 47 roots of unity. The root $z=1$ corresponds to $n/(n-1)=1$, i.e., $n \to \infty$ (the projective point at infinity).
+    Excluding this, there are 46 finite solutions.
+    Thus, $\omega_Q(p) = 46$.
+
+    \item \textbf{Case 3: $p \not\equiv 1 \pmod{47}$ and $p \ne 47$ (Inert/Shielding).}
+    The map $x \mapsto x^{47}$ is bijective on $\mathbb{F}_p$. The only solution to $x^{47}=1$ is $x=1$, which implies $n=\infty$.
+    There are no finite solutions. Thus, $\omega_Q(p) = 0$.
+\end{itemize}
+
+\subsection{Convergence Analysis}
+The infinite product accumulates density corrections from each prime.
+\begin{itemize}
+    \item \textbf{Shielding Primes ($\omega=0$):} The local factor is $\frac{1-0}{1-1/p} = \frac{p}{p-1} > 1$.
+    Since the first splitting prime is $p=283$, the product accumulates contributions from all primes $p < 283$ (including $p=47$). This creates a massive initial density boost.
+    \item \textbf{Splitting Primes ($\omega=46$):} The local factor is $\frac{1-46/p}{1-1/p} = \frac{p-46}{p-1} < 1$.
+    These terms appear sparsely (density $1/46$) and act as corrections, pulling the constant down from its peak.
+\end{itemize}
+Numerical evaluation up to $p=10^5$ shows convergence to $\mathfrak{S}(Q) \approx 8.70$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figure1_convergence.pdf}
+\caption{Convergence of $\mathfrak{S}(Q)$. The curve rises rapidly due to the accumulation of shielding terms ($p/(p-1)$) for $p < 283$. The sharp drops (e.g., at $p=283, 659$) correspond to splitting primes where $\omega(p)=46$.}
+\label{fig:convergence}
+\end{figure}
+
+\section{Gap Compression Analysis}
+
+We define the \textbf{Expected Prime Gap} $H^*(x)$ as the interval length required to find 1 expected prime at magnitude $x$.
+From the Bateman--Horn formula, the expected number of primes
+in an interval $[x, x+H]$ is approximately
+$\frac{\mathfrak{S}(f)}{d}\cdot\frac{H}{\ln x}$.
+Setting this equal to~$1$ and solving for $H$ gives
+\[
+H^*(x) \;\approx\; \frac{d\,\ln x}{\mathfrak{S}(f)}.
+\]
+
+\subsection{Numerical Stress Test ($n \approx 10^{10000}$)}
+At $x = 10^{10000}$ ($\ln x \approx 23026$), we compare the Titan polynomial against a generic degree-46 polynomial.
+
+\begin{table}[h]
+\centering
+\caption{Comparison of Prime Gap Parameters at $n=10^{10000}$. The ``Relative Gap'' column is normalized to the generic degree-46 baseline, the correct comparison class for~$Q(n)$.}
+\label{tab:comparison}
+\begin{tabular}{lcccc}
+\toprule
+Sequence Type & Constant $\mathfrak{S}$ & Degree $d$ & Expected Gap $H^*$ & Relative Gap \\
+\midrule
+Generic Degree-46 & $\approx 1.0$ & 46 & $1{,}059{,}196$ & $100\%$ (baseline) \\
+\textbf{Titan $Q(n)$} & \textbf{8.70} & \textbf{46} & \textbf{121,781} & \textbf{11.5\%} \\
+\midrule
+\textit{Ref: Standard Integers} & \textit{1.0} & \textit{1} & \textit{23,026} & \textit{(different class)} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{remark}
+The data shows that while $Q(n)$ is naturally sparser than integers (due to $d=46$), it is $8.7\times$ denser than a random polynomial of the same degree. For scale, the Hardy--Littlewood twin prime constant is $C_2 \approx 1.32$ \cite{HardyLittlewood}, an order of magnitude smaller than $\mathfrak{S}(Q)$---though the two constants govern fundamentally different problems (prime pairs vs.\ single-polynomial prime values).
+\end{remark}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{figure2_stress.pdf}
+\caption{The Titan Compression Effect. The expected number of primes $E$ reaches 1 at $H \approx 1.2 \times 10^5$ for the Titan polynomial (blue), compared to $H \approx 1.06 \times 10^6$ for a generic polynomial (gray). This represents an $8.7\times$ acceleration in prime finding.}
+\label{fig:stress_test}
+\end{figure}
+
+\section{Conclusion}
+
+The Titan polynomial $Q(n)$ represents an extreme outlier in the landscape of prime-generating polynomials. Its singular series constant $\mathfrak{S}(Q) \approx 8.70$ is anomalously large, driven by the complete absence of roots modulo $p$ for all primes $p < 283$.
+This constant acts as a linear compression factor, reducing the effective search space for primes by nearly 9-fold compared to generic expectations. This ``arithmetic assistance'' effectively lowers the barrier to finding large primes in this sequence, rendering $Q(n)$ an ideal candidate for testing the limits of sieve theory and primality testing algorithms.
+
+\medskip
+\noindent\textbf{Data availability.}
+The \LaTeX{} source, figures, and computation scripts
+are available at:
+\begin{center}
+\url{https://github.com/Ruqing1963/Q47-GapCompression}
+\end{center}
+
+\begin{thebibliography}{9}
+\bibitem{BatemanHorn}
+P.\,T. Bateman and R.\,A. Horn,
+\textit{A heuristic asymptotic formula concerning the distribution of prime numbers},
+Math.\ Comp.\ \textbf{16} (1962), 363--367.
+
+\bibitem{HardyLittlewood}
+G.\,H. Hardy and J.\,E. Littlewood,
+\textit{Some problems of `Partitio Numerorum'; III: On the expression of a number as a sum of primes},
+Acta Math.\ \textbf{44} (1923), 1--70.
+
+\bibitem{ChenTitan}
+R.~Chen,
+\textit{Prime Values of a Cyclotomic Norm Polynomial and a
+Conjectural Bounded Gap Phenomenon},
+Preprint (2026),
+\url{https://zenodo.org/records/18521551}.
+
+\bibitem{ChenBHpaper}
+R.~Chen,
+\textit{Quantitative Predictions for Prime Values of the Titan
+Polynomial: The Bateman--Horn Constant and Asymptotic Density},
+Preprint (2026),
+\url{https://zenodo.org/records/18526470}.
+\end{thebibliography}
+
+\end{document}
