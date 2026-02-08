@@ -1,0 +1,8 @@
+# Summary statistics for S(Q)
+Statistic,Value
+S_Q_at_p_1e5,8.6974
+Num_shielding_primes_below_283,60
+First_splitting_prime,283
+P_small_product,10.1896
+Compression_factor,8.70
+Effective_degree,5.29

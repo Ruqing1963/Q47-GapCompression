@@ -1,0 +1,6 @@
+# Gap compression comparison at x = 10^10000
+# H*(x) = d * ln(x) / S(f)
+Sequence_Type,Constant_S,Degree_d,Expected_Gap_H,Relative_Gap_pct
+Generic_Degree_46,1.0,46,1059189,100.0
+Titan_Q(n),8.70,46,121746,11.5
+Standard_Integers,1.0,1,23026,different_class
